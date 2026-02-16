@@ -1,6 +1,6 @@
 [app]
 
-# App basic info
+# App info
 title = MyApp
 package.name = myapp
 package.domain = org.test
@@ -12,52 +12,39 @@ source.include_exts = py,png,jpg,kv,atlas,ttf
 # Version
 version = 1.0
 
-# Requirements (safe default)
+# Requirements
 requirements = python3,kivy
 
-# Orientation
+# Screen
 orientation = portrait
-
-# Fullscreen
 fullscreen = 0
 
 
+# -------- ANDROID CONFIG --------
 
-# ---------------- ANDROID ----------------
-
-# Stable Android config (IMPORTANT)
+# Stable API (very important)
 android.api = 33
 android.minapi = 21
 android.target = 33
 android.sdk = 33
+
+# Correct NDK
 android.ndk = 25b
 
-# CPU support
+# CPU
 android.archs = arm64-v8a, armeabi-v7a
 
 # Permissions
-android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE
+android.permissions = INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
 
-# Don't download random new sdk
+# Accept licenses automatically
 android.accept_sdk_license = True
 
 
-
-# ---------------- BUILD ----------------
-
-# Log level
+# -------- BUILD SETTINGS --------
 log_level = 2
-
-# Warn on root
 warn_on_root = 0
 
 
-
-# ---------------- GRAPHICS ----------------
-fullscreen = 0
-orientation = portrait
-
-
-
-# ---------------- PYTHON FOR ANDROID ----------------
+# -------- Python for Android --------
 p4a.branch = stable
