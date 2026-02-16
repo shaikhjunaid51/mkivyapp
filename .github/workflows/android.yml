@@ -51,3 +51,17 @@ jobs:
       with:
         name: APK
         path: bin/*.apk
+        - name: Install Android cmdline-tools and SDK packages
+  run: |
+    export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+    sudo apt-get update && sudo apt-get install -y wget unzip
+    mkdir -p $ANDROID_SDK_ROOT/cmdline-tools
+    wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O /tmp/cmdline.zip
+    unzip /tmp/cmdline.zip -d $ANDROID_SDK_ROOT/cmdline-tools
+    mkdir -p $ANDROID_SDK_ROOT/cmdline-tools/latest
+    mv $ANDROID_SDK_ROOT/cmdline-tools/cmdline-tools/* $ANDROID_SDK_ROOT/cmdline-tools/latest/
+    export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+    sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platform-tools" "platforms;android-33" "build-tools;33.0.2"
+    yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT --licenses
+  env:
+    ANDROID_SDK_ROOT: ${{ runner.temp }}/Android/Sdk
