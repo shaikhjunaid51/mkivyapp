@@ -1,19 +1,19 @@
 [app]
 
-# App info
-title = Device Checker
-package.name = devicechecker
-package.domain = org.junaid
+# App basic info
+title = MyApp
+package.name = myapp
+package.domain = org.test
 
 # Source
 source.dir = .
-source.include_exts = py,png,jpg,kv,atlas
+source.include_exts = py,png,jpg,kv,atlas,ttf
 
-# Main file
-entrypoint = main.py
+# Version
+version = 1.0
 
-# Requirements (VERY IMPORTANT)
-requirements = python3,kivy,pyjnius
+# Requirements (safe default)
+requirements = python3,kivy
 
 # Orientation
 orientation = portrait
@@ -21,28 +21,43 @@ orientation = portrait
 # Fullscreen
 fullscreen = 0
 
-# Android permissions (needed for stability)
-android.permissions = INTERNET
 
-# Android API (stable for kivy)
+
+# ---------------- ANDROID ----------------
+
+# Stable Android config (IMPORTANT)
 android.api = 33
 android.minapi = 21
+android.target = 33
+android.sdk = 33
 android.ndk = 25b
 
-# Faster builds
-android.gradle_dependencies =
+# CPU support
+android.archs = arm64-v8a, armeabi-v7a
 
-# Disable unnecessary stuff
-android.enable_androidx = True
+# Permissions
+android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE
 
-# Version
-version = 1.0
-
-# Icon (optional)
-#icon.filename = %(source.dir)s/icon.png
+# Don't download random new sdk
+android.accept_sdk_license = True
 
 
-[buildozer]
 
+# ---------------- BUILD ----------------
+
+# Log level
 log_level = 2
-warn_on_root = 1 
+
+# Warn on root
+warn_on_root = 0
+
+
+
+# ---------------- GRAPHICS ----------------
+fullscreen = 0
+orientation = portrait
+
+
+
+# ---------------- PYTHON FOR ANDROID ----------------
+p4a.branch = stable
