@@ -1,35 +1,28 @@
-name: Build Kivy APK
-on: push: branches: [ main ] workflow_dispatch:
-jobs: build: runs-on: ubuntu-22.04
-steps:
-  - uses: actions/checkout@v4
+name: Build APK
 
-  - name: Install system packages
+on:
+push:
+branches: [ main ]
+workflow_dispatch:
+
+jobs:
+build:
+runs-on: ubuntu-22.04
+
+steps:
+  - name: Checkout
+    uses: actions/checkout@v4
+
+  - name: Install dependencies
     run: |
       sudo apt-get update
-      sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev cmake libffi-dev libssl-dev
-
-  - name: Install Android SDK
-    run: |
-      mkdir -p $HOME/android-sdk
-      cd $HOME/android-sdk
-      wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O sdk.zip
-      unzip sdk.zip
-      mkdir cmdline-tools/latest
-      mv cmdline-tools/* cmdline-tools/latest/ || true
-
-      echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
-      echo "PATH=$HOME/android-sdk/cmdline-tools/latest/bin:$HOME/android-sdk/platform-tools:$PATH" >> $GITHUB_ENV
-
-  - name: Accept licenses & install platforms
-    run: |
-      yes | sdkmanager --licenses
-      sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.2"
+      sudo apt-get install -y python3-pip git zip unzip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev cmake libffi-dev libssl-dev
 
   - name: Install Buildozer
     run: |
       python3 -m pip install --upgrade pip
-      pip install cython==0.29.33 buildozer
+      pip install cython==0.29.33
+      pip install buildozer
 
   - name: Build APK
     run: |
